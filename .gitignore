@@ -1,0 +1,6 @@
+*.pyc
+.idea/
+db.sqlite3
+.DS_Store
+arduino/celerybeat-schedule
+arduino/djcelery.schedulers.DatabaseScheduler
