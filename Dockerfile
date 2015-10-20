@@ -1,23 +1,26 @@
-FROM fernandoe/python:0.0.1
+FROM fernandoe/docker-python:0.0.1
 MAINTAINER Fernando Espíndola <fer.esp@gmail.com>
+
+RUN apt-get install -y supervisor
+
+ENV C_FORCE_ROOT foo
 
 RUN mkdir -p /app
 WORKDIR /app
-ADD requirements.txt /app/
-RUN pip install -r /app/requirements.txt
-COPY ./arduino /app
 
-RUN python manage.py migrate
-RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'password')" | python manage.py shell
+VOLUME /db
+
+RUN mkdir -p /opt/arduino
+ADD ./sandbox/requirements.txt /opt/arduino/
+ADD ./sandbox/gunicorn_config.py /opt/arduino/
+ADD ./sandbox/startup_web.sh /opt/arduino/
+ADD ./sandbox/startup_celery.sh /opt/arduino/
+RUN pip install -r /opt/arduino/requirements.txt
+COPY ./arduino /app
 
 EXPOSE 8000
 
-# CMD [ "gunicorn", "-c", "gunicorn_config.py", "wsgi:application" ]
+ADD ./sandbox/supervisord.conf /etc/supervisor/conf.d/
+run ln -s /home/docker/code/supervisor-app.conf
 
-# To use in PyCharm
-RUN apt-get install -y openssh-server
-RUN mkdir /var/run/sshd
-RUN echo 'root:password' | chpasswd
-RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-EXPOSE 22
+CMD ["supervisord", "-n"]

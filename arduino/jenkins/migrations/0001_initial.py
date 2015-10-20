@@ -37,6 +37,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('identifier', models.CharField(max_length=255)),
+                ('title', models.CharField(max_length=255)),
+                ('published', models.DateTimeField()),
                 ('status', models.BooleanField(default=True)),
                 ('job', models.ForeignKey(to='jenkins.JenkinsJob')),
             ],

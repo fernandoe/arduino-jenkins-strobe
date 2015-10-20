@@ -23,5 +23,5 @@ admin.site.register(JenkinsJob, JenkinsJobModelAdmin)
 
 
 class JenkinsJobStatusModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 'job', 'status']
+    list_display = ['id', 'published', 'job', 'title', 'status']
 admin.site.register(JenkinsJobStatus, JenkinsJobStatusModelAdmin)

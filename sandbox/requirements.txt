@@ -4,3 +4,6 @@ gunicorn==19.3.0
 requests==2.8.1
 celery==3.1.18
 feedparser==5.2.1
+django-celery==3.1.17
+python_dateutil==2.4.2
+ipython==4.0.0

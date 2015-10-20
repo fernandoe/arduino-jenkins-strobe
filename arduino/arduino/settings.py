@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'arduino.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': '/db/db.sqlite3',
     }
 }
 
@@ -107,3 +107,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 BROKER_URL = 'django://'
+
+import serial
+SERIAL = serial.Serial('/dev/ttyACM0', 9600)

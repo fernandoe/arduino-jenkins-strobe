@@ -4,3 +4,5 @@ db.sqlite3
 .DS_Store
 arduino/celerybeat-schedule
 arduino/djcelery.schedulers.DatabaseScheduler
+sandbox/docker/home/.bash_history
+sandbox/docker/home/.pycharm_helpers/
