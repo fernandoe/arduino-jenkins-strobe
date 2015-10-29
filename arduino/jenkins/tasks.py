@@ -16,7 +16,7 @@ from django.conf import settings
 
 
 
-@periodic_task(run_every=timedelta(seconds=25))
+@periodic_task(run_every=timedelta(seconds=15))
 def verify_jenkins():
     jobs = JenkinsJob.objects.filter(active=True)
     for job in jobs:
@@ -39,7 +39,7 @@ def verify_jenkins():
     return True
 
 
-@periodic_task(run_every=timedelta(seconds=30))
+@periodic_task(run_every=timedelta(seconds=5))
 def send_to_usb():
     success = True
     jobs = JenkinsJob.objects.filter(active=True)
